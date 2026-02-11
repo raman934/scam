@@ -26,6 +26,7 @@ const messages = document.querySelectorAll('.message');
 const finalQuestion = document.querySelector('.final-question');
 const yesBtn = document.querySelector('.yes-btn');
 const noBtn = document.querySelector('.no-btn');
+const bgMusic = document.getElementById('bg-music');
 
 // Cycling texts for the "Still thinking" button
 const noBtnMessages = [
@@ -54,6 +55,17 @@ function showNextMessage() {
         }
     });
 }
+
+// Start background music on first user interaction (autoplay-safe)
+function startMusicOnce() {
+    if (!bgMusic) return;
+    bgMusic.volume = 0.3;
+    bgMusic.play().catch(() => {
+        // Ignore if browser still blocks it; it's not critical
+    });
+    document.removeEventListener('click', startMusicOnce);
+}
+document.addEventListener('click', startMusicOnce);
 
 // Button interactions
 yesBtn.addEventListener('click', function() {

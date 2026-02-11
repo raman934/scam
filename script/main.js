@@ -1,6 +1,6 @@
   // Optimized particle creation
   function createParticles() {
-    const emojis = ['❤️', '🌎', '🌠', '💝', '🌟', '💞'];
+    const emojis = ['❤️', '💘', '💞', '💫', '🌟', '🥰'];
     const container = document.body;
     let lastTime = 0;
 
@@ -61,9 +61,9 @@ document.querySelector('.yes-btn').addEventListener('click', function() {
     });
 
     finalQuestion.innerHTML = 
-        "<h2>🎉 I know you're my baby boo 💝</h2>" +
-        "<p>You've made my heart explode with joy!</p>" +
-        "<div style='margin-top: 2rem; font-size: 3rem'>💞🌟</div>";
+        "<h2>🎉 You're officially stuck with me 💝</h2>" +
+        "<p>Thank you for saying yes. No take-backs, okay?</p>" +
+        "<div style='margin-top: 2rem; font-size: 3rem'>💞✨</div>";
 });
 
 document.querySelector('.no-btn').addEventListener('mouseover', function() {

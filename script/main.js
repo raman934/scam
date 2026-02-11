@@ -36,6 +36,7 @@ const noBtnMessages = [
   "Last chance to pick me 🥺",
 ];
 let noBtnClickCount = 0;
+let noBtnHoverCount = 0;
 
 function showNextMessage() {
     requestAnimationFrame(() => {
@@ -79,12 +80,18 @@ yesBtn.addEventListener('click', function() {
 });
 
 noBtn.addEventListener('mouseover', function() {
+    // Let it dodge only a few times so she can eventually click
+    noBtnHoverCount++;
+    if (noBtnHoverCount > 3) {
+        return;
+    }
+
     requestAnimationFrame(() => {
-        this.style.transform = 
-            `translate(${Math.random() * 200 - 100}px, 
-            ${Math.random() * 200 - 100}px)
-            rotate(${Math.random() * 360}deg)`;
-        this.style.transition = 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)';
+        const offsetX = Math.random() * 140 - 70; // smaller, reachable move
+        const offsetY = Math.random() * 140 - 70;
+        this.style.transform =
+            `translate(${offsetX}px, ${offsetY}px) rotate(${Math.random() * 40 - 20}deg)`;
+        this.style.transition = 'all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1)';
     });
 });
 
@@ -97,6 +104,9 @@ noBtn.addEventListener('click', function() {
     const nextMessage = noBtnMessages[noBtnClickCount % noBtnMessages.length];
     this.textContent = nextMessage;
     noBtnClickCount++;
+
+    // After she's clicked once, stop dodging entirely
+    noBtnHoverCount = Number.MAX_SAFE_INTEGER;
 
     // Gently reset the Yes button size after a short delay
     setTimeout(() => {

@@ -24,6 +24,18 @@
 let currentMessage = 0;
 const messages = document.querySelectorAll('.message');
 const finalQuestion = document.querySelector('.final-question');
+const yesBtn = document.querySelector('.yes-btn');
+const noBtn = document.querySelector('.no-btn');
+
+// Cycling texts for the "Still thinking" button
+const noBtnMessages = [
+  "Are you sure? 🤨",
+  "Like... really sure? 👀",
+  "Think again 😏",
+  "This is a trap, you know 🪤",
+  "Last chance to pick me 🥺",
+];
+let noBtnClickCount = 0;
 
 function showNextMessage() {
     requestAnimationFrame(() => {
@@ -43,7 +55,7 @@ function showNextMessage() {
 }
 
 // Button interactions
-document.querySelector('.yes-btn').addEventListener('click', function() {
+yesBtn.addEventListener('click', function() {
     const celebration = document.querySelector('.celebration');
     celebration.style.display = 'block';
 
@@ -66,7 +78,7 @@ document.querySelector('.yes-btn').addEventListener('click', function() {
         "<div style='margin-top: 2rem; font-size: 3rem'>💞✨</div>";
 });
 
-document.querySelector('.no-btn').addEventListener('mouseover', function() {
+noBtn.addEventListener('mouseover', function() {
     requestAnimationFrame(() => {
         this.style.transform = 
             `translate(${Math.random() * 200 - 100}px, 
@@ -74,6 +86,22 @@ document.querySelector('.no-btn').addEventListener('mouseover', function() {
             rotate(${Math.random() * 360}deg)`;
         this.style.transition = 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)';
     });
+});
+
+noBtn.addEventListener('click', function() {
+    // Make the Yes button grow slightly
+    yesBtn.style.transition = 'transform 0.3s ease';
+    yesBtn.style.transform = 'scale(1.08)';
+
+    // Change the No button text playfully, cycling through options
+    const nextMessage = noBtnMessages[noBtnClickCount % noBtnMessages.length];
+    this.textContent = nextMessage;
+    noBtnClickCount++;
+
+    // Gently reset the Yes button size after a short delay
+    setTimeout(() => {
+        yesBtn.style.transform = '';
+    }, 600);
 });
 
 // Initialize
